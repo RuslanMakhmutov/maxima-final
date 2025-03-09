@@ -7,10 +7,13 @@
     "require": {
         "php": "^8.2",
         "ext-soap": "*",
+        "flat3/lodata": "^5.33",
         "inertiajs/inertia-laravel": "^1.0",
-        "laravel/framework": "^11.9",
+        "laravel/framework": "^11.31",
+        "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "league/flysystem-aws-s3-v3": "^3.29",
         "mongodb/laravel-mongodb": "^5.1",
         "pusher/pusher-php-server": "^7.2",
         "tightenco/ziggy": "^2.0"
@@ -21,10 +24,12 @@
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
+        "laravel/telescope": "^5.5",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "pestphp/pest": "^3.5",
-        "pestphp/pest-plugin-laravel": "^3.0"
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
@@ -61,7 +66,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         }
     },
     "config": {
