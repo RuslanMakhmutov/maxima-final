@@ -22,7 +22,7 @@ class PostSeeder extends Seeder
             ->get();
         $categories = Category::select('id')->get();
 
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $post_categories = $categories->random(rand(1, 3));
             Post::factory()
                 ->for($users->random())

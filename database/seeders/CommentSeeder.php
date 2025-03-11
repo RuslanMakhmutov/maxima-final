@@ -19,7 +19,7 @@ class CommentSeeder extends Seeder
         $posts = Post::select(['id', 'created_at'])->whereNotNull('published_at')->get();
 
         // создание комментариев первого уровня
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $post = $posts->random();
             $time = $post->created_at->addSeconds(rand(3600 * 1, 3600 * 2));
             Comment::factory()
@@ -36,7 +36,7 @@ class CommentSeeder extends Seeder
         for ($level = 1; $level <= 3; $level++) {
             $comments_of_level = Comment::select(['id', 'post_id', 'root_id', 'level', 'created_at'])->where('level', $level)->get();
 
-            $count_to_add = rand(1000, 2000);
+            $count_to_add = rand(100, 200);
             for ($i = 0; $i < $count_to_add; $i++) {
                 $parent_comment = $comments_of_level->random();
                 $time = $parent_comment->created_at->addSeconds(rand(3600 * 1, 3600 * 2));

@@ -26,12 +26,12 @@ class VisitSeeder extends Seeder
         $categories = Category::select(['id', 'created_at'])->get();
 
         // создание просмотров постов и категорий
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $visitable = fake()->boolean(90) ? $posts->random() : $categories->random();
             $time = $visitable->created_at->addSeconds(rand(86400 * 1, 86400 * 6));
             Visit::factory()
                 ->for($visitable, 'visitable')
-                ->count(rand(5, 10))
+                ->count(rand(2, 3))
                 ->state(new Sequence(
                     fn (Sequence $sequence) => ['user_id' => fake()->boolean() ? $users->random()->id : null],
                 ))

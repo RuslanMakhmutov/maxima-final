@@ -49,7 +49,7 @@ class AdminPostService
             $post->published_at = now();
         }
         if ($request->hasFile('image')) {
-            $post->image = Storage::putFile(Post::IMAGE_PATH, $request->file('image'));
+            $post->image = Storage::put('posts', $request->file('image'));
         }
         $post->save();
 
@@ -89,7 +89,7 @@ class AdminPostService
             $post->deleteImage();
         }
         if ($request->hasFile('image')) {
-            $post->image = Storage::putFile(Post::IMAGE_PATH, $request->file('image'));
+            $post->image = Storage::put('posts', $request->file('image'));
         }
         $post->save();
 
