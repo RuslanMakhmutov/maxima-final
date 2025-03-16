@@ -20,7 +20,7 @@ class CommentStoredEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(protected Comment $comment)
+    public function __construct(public Comment $comment)
     {
     }
 
