@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->index()->comment('Автор')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class)->index()->comment('Основная категория')->constrained()->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
+            $table->index(['created_at']);
         });
     }
 

@@ -33,6 +33,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->index()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Post::class)->index()->constrained()->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
+            $table->index(['created_at']);
         });
     }
 

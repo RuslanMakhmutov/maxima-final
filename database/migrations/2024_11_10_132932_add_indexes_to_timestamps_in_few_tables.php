@@ -11,16 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->index(['created_at']);
-        });
-        Schema::table('comments', function (Blueprint $table) {
-            $table->index(['created_at']);
-        });
         Schema::table('users', function (Blueprint $table) {
-            $table->index(['created_at']);
-        });
-        Schema::table('visits', function (Blueprint $table) {
             $table->index(['created_at']);
         });
     }
@@ -30,16 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
-        });
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
-        });
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
-        });
-        Schema::table('visits', function (Blueprint $table) {
             $table->dropIndex(['created_at']);
         });
     }
