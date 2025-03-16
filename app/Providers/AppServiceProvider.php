@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\PollutionServiceInterface;
+use App\Contracts\VisitServiceInterface;
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\PollutionService;
+use App\Services\VisitService;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
@@ -39,5 +43,8 @@ class AppServiceProvider extends ServiceProvider
                 ->whereNotNull('published_at')
                 ->firstOrFail();
         });
+
+        $this->app->bind(VisitServiceInterface::class, VisitService::class);
+        $this->app->bind(PollutionServiceInterface::class, PollutionService::class);
     }
 }

@@ -2,25 +2,23 @@
 
 namespace App\Services;
 
+use App\Contracts\PollutionServiceInterface;
+use App\DTO\airDTO;
 use App\Models\Pollution;
+use App\Repositories\PollutionRepository;
 
-class PollutionService
+class PollutionService implements PollutionServiceInterface
 {
-    public function saveAirResponse(object $air): Pollution
+    public function __construct(protected PollutionRepository $repository)
     {
-        $id = "{$air->coord->lat}_{$air->coord->lon}_{$air->list[0]->dt}";
+    }
 
-        $pollution = Pollution::find($id);
+    public function saveAirResponse(airDTO $air): Pollution
+    {
+        $pollution = $this->repository->getItemByAir($air);
 
         if (empty($pollution)) {
-            $pollution = Pollution::make([
-                'coord' => $air->coord,
-                'dt' => $air->list[0]->dt,
-                'main' => $air->list[0]->main,
-                'components' => $air->list[0]->components,
-            ]);
-            $pollution->id = $id;
-            $pollution->save();
+            $pollution = $this->repository->createItemFromAir($air);
         }
 
         return $pollution;
