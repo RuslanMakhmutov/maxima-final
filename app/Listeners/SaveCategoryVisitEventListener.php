@@ -23,8 +23,11 @@ class SaveCategoryVisitEventListener
     public function handle(CategoryVisitEvent $event): void
     {
         if (!(request()->has('page'))) {
+            $request = request();
             $visit = new Visit([
                 'user_id' => auth()->id(),
+                'ip_address' => $request->ip(),
+                'browser' => $request->userAgent(),
             ]);
             $event->category->visits()->save($visit);
         }

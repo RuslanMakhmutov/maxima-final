@@ -37,10 +37,8 @@ class PostVisitEvent implements ShouldBroadcast
 
     public function broadcastWith(): array
     {
-        $this->post->loadCount(['visits']);
         return [
             'post_id' => $this->post->id,
-            'visits_count' => $this->post->visits()->count() + 1,
         ];
     }
 }

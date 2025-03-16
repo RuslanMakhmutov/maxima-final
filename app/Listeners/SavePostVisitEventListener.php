@@ -22,8 +22,11 @@ class SavePostVisitEventListener
      */
     public function handle(PostVisitEvent $event): void
     {
+        $request = request();
         $visit = new Visit([
             'user_id' => auth()->id(),
+            'ip_address' => $request->ip(),
+            'browser' => $request->userAgent(),
         ]);
         $event->post->visits()->save($visit);
     }

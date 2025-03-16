@@ -20,10 +20,11 @@ const props = defineProps({
 
 const setupListeners = () => {
     Echo.private(`posts`)
-        .listen('PostVisitEvent', ({post_id, visits_count}) => {
+        // .listen('PostVisitEvent', ({post_id, visits_count}) => {
+        .listen('PostVisitEvent', ({ post_id }) => {
             const index = props.posts.data.findIndex(el => el.id === post_id)
             if (index !== -1) {
-                props.posts.data[index].visits_count = visits_count
+                props.posts.data[index].visits_count++
             }
         })
         .listen('CommentStoredEvent', (comment) => {

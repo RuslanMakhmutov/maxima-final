@@ -24,8 +24,6 @@ class Post extends Model
         'image_url'
     ];
 
-    public const IMAGE_PATH = 'images/posts';
-
     public function deleteImage(): void
     {
         if (!empty($this->image) && Storage::fileExists($this->image)) {

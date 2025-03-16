@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Contracts\VisitServiceInterface;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Resources\Admin\Post\AdminPostResource;
@@ -19,15 +20,23 @@ class AdminPostService
         $query = Post::with('categories')
             ->withCount([
                 'comments' => fn ($q) => $q->withTrashed(),
-                'visits'
+                // 'visits', // не поддерживается MongoDB
             ])
             ->orderByDesc('id');
 
         if (request()->query('only_trashed')) {
             $query->onlyTrashed();
         }
+        $posts = $query->paginate(10);
+
+        $visitService = app(VisitServiceInterface::class);
+
+        $posts->transform(function (Post $post) use ($visitService) {
+            $post->setAttribute('visits_count', $visitService->getVisitableCount((new Post())->getMorphClass(), $post->id));
+            return $post;
+        });
         return Inertia::render('Admin/Post/Index', [
-            'posts' => AdminPostResource::collection($query->paginate(10)),
+            'posts' => AdminPostResource::collection($posts),
             'only_trashed' => (bool)request()->query('only_trashed'),
         ]);
     }
