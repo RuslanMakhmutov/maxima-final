@@ -20,7 +20,7 @@ class PostController extends Controller
 
     public function item(Post $post, PostService $postService): \Illuminate\Http\JsonResponse
     {
-        $post = $postService->handleShowPost($post);
+        $post = $postService->showPost($post);
 
         return response()->json([
             'post' => PostResource::make($post),

@@ -1,5 +1,6 @@
 <?php
 
+namespace Tests\Feature\Visit;
 use App\Models\Visit;
 use App\Repositories\VisitRepository;
 use Illuminate\Database\Eloquent\Collection;

@@ -35,7 +35,7 @@ class PostController extends Controller
 
     public function show(Post $post, PostService $postService, CommentService $commentService)
     {
-        $post = $postService->handleShowPost($post);
+        $post = $postService->showPost($post);
         $comments = $commentService->getListForPost($post);
 
         return Inertia::render('Post/Show', [

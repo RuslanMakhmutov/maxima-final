@@ -13,7 +13,7 @@ abstract class BaseRepository
 
     protected function query(): Builder
     {
-        return $this->model->query();
+        return $this->model->newQuery();
     }
 
     public function getItemById(int|string $id): ?Model

@@ -1,5 +1,6 @@
 <?php
 
+namespace Tests\Feature\Visit;
 use App\Repositories\VisitRepository;
 use App\Services\VisitService;
 use Illuminate\Foundation\Testing\RefreshDatabase;

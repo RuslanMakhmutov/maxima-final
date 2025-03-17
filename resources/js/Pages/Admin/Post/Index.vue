@@ -117,6 +117,7 @@ onBeforeUnmount(() => {
                             <th class="border border-gray-300 p-2">ID</th>
                             <th class="border border-gray-300 p-2">Заголовок</th>
                             <th class="border border-gray-300 max-w-20"></th>
+                            <th class="border border-gray-300 max-w-20"></th>
                             <th class="border border-gray-300 p-2">Категории</th>
                             <th class="border border-gray-300 p-2">Создано</th>
                             <th class="border border-gray-300 p-2">Опублик.</th>
@@ -147,6 +148,16 @@ onBeforeUnmount(() => {
                                 <a :href="post.image_url" target="_blank">
                                     <img class="max-w-20 max-h-10 text-xs" :src="post.image_url">
                                 </a>
+                            </td>
+                            <td class="border border-gray-300 align-middle">
+                                <Link
+                                    :href="route('posts.show', post.id)"
+                                    :only="['post']"
+                                    class="font-mono text-lg text-blue-600 dark:text-blue-500 inline-block"
+                                    target="_blank"
+                                >
+                                    &#x1F441;
+                                </Link>
                             </td>
                             <td class="border border-gray-300 p-2">
                                 <small>

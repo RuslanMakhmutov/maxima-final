@@ -1,5 +1,6 @@
 <?php
 
+namespace Pollution;
 use App\DTO\airDTO;
 use App\Models\Pollution;
 use App\Repositories\PollutionRepository;

@@ -16,8 +16,7 @@ class PollutionRepository extends BaseRepository
     {
         $id = $this->getIdForAir($air);
 
-        return $this->model
-            ->query()
+        return $this->query()
             ->find($id);
     }
 
