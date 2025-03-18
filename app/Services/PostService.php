@@ -18,18 +18,13 @@ class PostService implements PostServiceInterface
 
     public function indexList(): AnonymousResourceCollection
     {
-        $posts = $this->repository->listQuery()->paginate(12)->onEachSide(0);
+        $posts = $this->repository->getIndexList();
         return PostsListResource::collection($posts);
     }
 
     public function categoryList(Category $category): AnonymousResourceCollection
     {
-        $posts = $this->repository->listQuery()
-            ->whereHas('categories', function ($query) use ($category) {
-                $query->where('category_id', $category->id);
-            })
-            ->paginate(12)
-            ->onEachSide(0);
+        $posts = $this->repository->getCategoryList($category);
         return PostsListResource::collection($posts);
     }
 

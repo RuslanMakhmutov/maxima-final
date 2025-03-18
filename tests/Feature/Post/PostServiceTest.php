@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Services\PostService;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,17 +42,11 @@ class PostServiceTest extends TestCase
     /**
      * @throws Exception
      */
-    public function test_IndexListReturnsResourceCollection(): void
+    public function test_IndexList(): void
     {
-        $queryBuilderMock = $this->createMock(Builder::class);
         $this->repository
             ->expects($this->once())
-            ->method('listQuery')
-            ->willReturn($queryBuilderMock);
-
-        $queryBuilderMock
-            ->expects($this->once())
-            ->method('paginate')
+            ->method('getIndexList')
             ->willReturn($this->paginator);
 
         $response = $this->postService->indexList();
@@ -61,21 +54,11 @@ class PostServiceTest extends TestCase
         $this->assertEquals(12, $response->count());
     }
 
-    public function test_CategoryListReturnsResourceCollection(): void
+    public function test_CategoryList(): void
     {
-        $queryBuilderMock = $this->createMock(Builder::class);
         $this->repository
             ->expects($this->once())
-            ->method('listQuery')
-            ->willReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->expects($this->once())
-            ->method('whereHas')
-            ->willReturn($queryBuilderMock);
-
-        $queryBuilderMock
-            ->expects($this->once())
-            ->method('paginate')
+            ->method('getCategoryList')
             ->willReturn($this->paginator);
 
         $response = $this->postService->categoryList($this->category);
