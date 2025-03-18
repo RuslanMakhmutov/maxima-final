@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Contracts\AdminPostServiceInterface;
 use App\Contracts\PollutionServiceInterface;
 use App\Contracts\PostServiceInterface;
 use App\Contracts\VisitServiceInterface;
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\Admin\AdminPostService;
 use App\Services\PollutionService;
 use App\Services\PostService;
 use App\Services\VisitService;
@@ -49,5 +51,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(VisitServiceInterface::class, VisitService::class);
         $this->app->bind(PollutionServiceInterface::class, PollutionService::class);
         $this->app->bind(PostServiceInterface::class, PostService::class);
+        $this->app->bind(AdminPostServiceInterface::class, AdminPostService::class);
     }
 }
