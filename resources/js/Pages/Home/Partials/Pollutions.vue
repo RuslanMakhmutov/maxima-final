@@ -54,7 +54,13 @@ const aqi = {
             <footer class="mt-3">
                 <p class="text-right text-sm text-gray-500">
                     Запросы к сервису openweathermap кешируются на 60 секунд.<br />
-                    Результаты сохраняются в mongoDB.
+                    Результаты сохраняются в mongoDB.<br />
+                    <span
+                        v-if="$page.props.auth.user && !pollution"
+                        class="text-red-600"
+                    >
+                        Не забудьте прописать OPENWEATHERMAP_API_KEY в .env
+                    </span>
                 </p>
             </footer>
         </section>
