@@ -69,5 +69,13 @@ jobs:
 #      - name: Run PHPStan
 #        run: vendor/bin/phpstan analyse --memory-limit=512M
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build Frontend
+        run: npm install && npm run build
+
       - name: Run tests
         run: php artisan test
