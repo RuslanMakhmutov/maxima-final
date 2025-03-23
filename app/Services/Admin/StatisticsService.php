@@ -25,7 +25,7 @@ class StatisticsService implements StatisticsServiceInterface
         ]);
     }
 
-    public function get(Carbon $from, Carbon $to = null)
+    public function get(Carbon $from, Carbon $to = null): array
     {
         if (is_null($to)) {
             $to = $from->clone()->endOfDay();

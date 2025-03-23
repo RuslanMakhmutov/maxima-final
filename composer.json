@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-mongodb": "*",
         "ext-soap": "*",
         "flat3/lodata": "^5.33",
         "inertiajs/inertia-laravel": "^1.0",
@@ -24,7 +25,6 @@
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
-        "laravel/telescope": "^5.5",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "pestphp/pest": "^3.5",
@@ -66,9 +66,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "laravel/telescope"
-            ]
+            "dont-discover": []
         }
     },
     "config": {

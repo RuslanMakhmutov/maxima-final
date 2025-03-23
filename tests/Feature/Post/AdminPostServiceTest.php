@@ -1,6 +1,6 @@
 <?php
 
-namespace Post;
+namespace Tests\Feature\Post;
 
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;

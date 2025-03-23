@@ -61,9 +61,9 @@ class CommentRepository extends BaseRepository
         return $comment;
     }
 
-    public function delete(Comment $comment): void
+    public function delete(Comment $comment): ?bool
     {
-        $comment->delete();
+        return $comment->delete();
     }
 
     public function getStatistics(Carbon $from, Carbon $to): Collection

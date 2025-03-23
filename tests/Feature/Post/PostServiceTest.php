@@ -1,6 +1,6 @@
 <?php
 
-namespace Post;
+namespace Tests\Feature\Post;
 
 use App\Events\PostVisitEvent;
 use App\Http\Resources\Post\PostsListResource;

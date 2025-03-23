@@ -1,6 +1,6 @@
 <?php
 
-namespace Pollution;
+namespace Tests\Feature\Pollution;
 use App\DTO\airDTO;
 use App\Models\Pollution;
 use App\Repositories\PollutionRepository;
