@@ -43,7 +43,12 @@ make npm-install
 make build-js
 ```
 
-Добавьте администратора с помощью AdminSeeder
+Настройте данные администратора с помощью параметров в .env:  
+**ADMIN_NAME=**  
+**ADMIN_EMAIL=**  
+**ADMIN_PASSWORD=**  
+
+Добавьте администратора с помощью AdminSeeder. 
 ```
 php artisan db:seed --class=AdminSeeder
 ```
