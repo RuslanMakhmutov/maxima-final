@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Visit;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -26,7 +25,7 @@ class VisitSeeder extends Seeder
         $categories = Category::select(['id', 'created_at'])->get();
 
         // создание просмотров постов и категорий
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $visitable = fake()->boolean(90) ? $posts->random() : $categories->random();
             $time = $visitable->created_at->addSeconds(rand(86400 * 1, 86400 * 6));
             Visit::factory()

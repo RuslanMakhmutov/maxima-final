@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -28,6 +30,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::delete('{post}/delete', [AdminPostController::class, 'delete'])->name('delete');
         Route::put('{post}/restore', [AdminPostController::class, 'restore'])->name('restore')->withTrashed();
         Route::delete('{post}/destroy', [AdminPostController::class, 'destroy'])->name('destroy')->withTrashed();
+    });
+    Route::resource('categories', AdminCategoryController::class)->except(['show']);
+    Route::prefix('statistics')->name('statistics.')->group(function () {
+        Route::get('/', [StatisticsController::class, 'index'])->name('index');
     });
 });
 

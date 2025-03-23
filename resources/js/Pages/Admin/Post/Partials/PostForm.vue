@@ -1,7 +1,5 @@
 <script setup>
-import {Head, Link, useForm} from '@inertiajs/vue3';
-import CommonLayout from "@/Layouts/CommonLayout.vue";
-import NavLink from "@/Components/NavLink.vue";
+import { useForm } from '@inertiajs/vue3';
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";

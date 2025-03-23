@@ -9,3 +9,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('posts', function ($user) {
     return \Illuminate\Support\Facades\Auth::check() && $user->hasRole('admin');
 });
+Broadcast::channel('categories', function ($user) {
+    return \Illuminate\Support\Facades\Auth::check() && $user->hasRole('admin');
+});

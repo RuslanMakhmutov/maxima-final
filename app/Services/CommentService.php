@@ -2,30 +2,29 @@
 
 namespace App\Services;
 
+use App\Contracts\CommentServiceInterface;
 use App\Events\CommentDeletedEvent;
 use App\Events\CommentStoredEvent;
 use App\Http\Requests\Comment\StoreCommentRequest;
 use App\Http\Resources\Comment\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Repositories\CommentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
-class CommentService
+class CommentService implements CommentServiceInterface
 {
+    public function __construct(protected CommentRepository $repository)
+    {
+    }
+
     public function getListForPost(Post $post): Collection
     {
-        $list = $post->comments()
-            ->withTrashed()
-            ->with([
-                'user:id,name'
-            ])
-            ->orderBy('id')
-            ->get();
+        $list = $this->repository->getListForPost($post);
 
         $tree = new Collection();
-
         return $this->buildPlainTree($list, $tree);
     }
 
@@ -46,33 +45,7 @@ class CommentService
 
     public function store(StoreCommentRequest $request, Post $post): JsonResponse
     {
-        $data = $request->validated();
-
-        $comment = new Comment($data);
-        $comment->user_id = Auth::id();
-        $comment->post_id = $post->id;
-
-        if ($request->filled('parent_id')) {
-            $parent = Comment::withTrashed()
-                ->select(['level', 'root_id', 'content'])
-                ->where('id', $data['parent_id'])
-                ->firstOrFail();
-
-            $comment->level = min($parent->level + 1, Comment::MAX_LEVEL);
-            $comment->parent_id = $data['parent_id'];
-            $comment->root_id = $parent->root_id;
-        } else {
-            $comment->level = 1;
-        }
-
-        $comment->save();
-
-        if (empty($comment->root_id)) {
-            $comment->root_id = $comment->id;
-            $comment->save();
-        }
-
-        $comment->setRelation('user', Auth::user());
+        $comment = $this->repository->store($request, $post);
 
         CommentStoredEvent::broadcast($comment)->toOthers();
 
@@ -83,12 +56,17 @@ class CommentService
 
     public function delete(Comment $comment): JsonResponse
     {
-        $comment->delete();
+        $this->repository->delete($comment);
 
         CommentDeletedEvent::broadcast($comment)->toOthers();
 
         return response()->json([
             'message' => 'ok',
         ]);
+    }
+
+    public function getStatistics(Carbon $from, Carbon $to): Collection
+    {
+        return $this->repository->getStatistics($from, $to)->keyBy('date');
     }
 }

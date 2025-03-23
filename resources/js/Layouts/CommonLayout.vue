@@ -65,6 +65,18 @@ const showingNavigationDropdown = ref(false);
                                         >
                                             Статьи
                                         </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('admin.categories.index')"
+                                            :active="route().current('admin.categories.*')"
+                                        >
+                                            Категории
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('admin.statistics.index')"
+                                            :active="route().current('admin.statistics.*')"
+                                        >
+                                            Статистика
+                                        </DropdownLink>
                                     </template>
                                 </Dropdown>
                             </div>
@@ -190,6 +202,18 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('admin.posts.*')"
                                 >
                                     Управление статьями
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    :href="route('admin.categories.index')"
+                                    :active="route().current('admin.categories.*')"
+                                >
+                                    Управление категориями
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    :href="route('admin.statistics.index')"
+                                    :active="route().current('admin.statistics.*')"
+                                >
+                                    Статистика
                                 </ResponsiveNavLink>
                             </div>
                         </template>

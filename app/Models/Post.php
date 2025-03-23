@@ -20,6 +20,10 @@ class Post extends Model
         'category_id',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     protected $appends = [
         'image_url'
     ];

@@ -6,10 +6,11 @@ use App\Models\Category;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CategoryVisitEvent
+class CategoryVisitEvent implements ShouldBroadcast
 {
     use Dispatchable;
     use InteractsWithSockets;
@@ -20,7 +21,6 @@ class CategoryVisitEvent
      */
     public function __construct(public Category $category)
     {
-        //
     }
 
     /**
@@ -31,7 +31,14 @@ class CategoryVisitEvent
     public function broadcastOn(): array
     {
         return [
-            // new PrivateChannel('channel-name'),
+            new PrivateChannel('categories'),
+        ];
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'category_id' => $this->category->id,
         ];
     }
 }

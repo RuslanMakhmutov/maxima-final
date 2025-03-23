@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
                                     class="font-mono text-lg text-blue-600 dark:text-blue-500 inline-block"
                                     target="_blank"
                                 >
-                                    &#x1F441;
+                                    открыть
                                 </Link>
                             </td>
                             <td class="border border-gray-300 p-2">

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -20,13 +19,15 @@ class AdminSeeder extends Seeder
         $password = config('auth.admin.password');
 
         if (empty($name) || empty($email) || empty($password)) {
-            throw new \Exception('Please set ADMIN_NAME, ADMIN_EMAIL AND ADMIN_PASSWORD in .env file');
+            $this->command->error('Please set ADMIN_NAME, ADMIN_EMAIL AND ADMIN_PASSWORD in .env file');
+            return;
+        }
+
+        if (Role::doesntExist()) {
+            $this->call(RoleSeeder::class);
         }
 
         $role = Role::where('title', 'admin')->first();
-        if (!$role) {
-            throw new \Exception('Please run RoleSeeder first');
-        }
 
         $admin = User::updateOrCreate([
             'email' => $email,

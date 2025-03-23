@@ -6,12 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function __construct()
+    {
+        if (app()->runningUnitTests()) {
+            $this->connection = config('database.default');
+        } else {
+            $this->connection = 'mongodb';
+        }
+    }
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('mongodb')->create('pollutions', function (Blueprint $table) {
+        Schema::create('pollutions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('coord');
@@ -19,6 +27,8 @@ return new class extends Migration
             $table->string('main');
             $table->string('components');
         });
+
+        \Illuminate\Support\Facades\DB::connection($this->connection)->table('pollutions')->truncate();
     }
 
     /**
@@ -26,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('mongodb')->dropIfExists('pollutions');
+        Schema::dropIfExists('pollutions');
     }
 };
